@@ -1,14 +1,26 @@
-# See https://github.com/silverstripe-labs/silverstripe-travis-support for setup details
-
 language: php
 
-sudo: false
+dist: xenial
 
-php: 
- - 5.6
+services:
+  - mysql
 
-env:
- - DB=MYSQL CORE_RELEASE=3.1
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  include:
+  - php: 5.6
+    env: DB=MYSQL CORE_RELEASE=4.4.x-dev
+  - php: 7.1
+    env: DB=MYSQL CORE_RELEASE=4.5.x-dev
+  - php: 7.2
+    env: DB=MYSQL CORE_RELEASE=4.6.x-dev
+  - php: 7.3
+    env: DB=MYSQL CORE_RELEASE=4.6.x-dev 
+  - php: 7.4
+    env: DB=MYSQL CORE_RELEASE=4.x-dev
 
 before_script:
  - git clone git://github.com/silverstripe-labs/silverstripe-travis-support.git ~/travis-support
